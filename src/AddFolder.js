@@ -1,0 +1,45 @@
+import React from 'react';
+import NotefulContext from './NotefulContext';
+
+export default class AddFolder extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      folderName: {
+        value: '',
+        touched: false
+      }
+    }
+  }
+
+  updateName = (name) => {
+    this.setState({ folderName: { value: name, touched: true } })
+  }
+
+  validName() {
+    const name = this.state.folderName.value.trim();
+    if (name.length === 0) {
+      return 'Name is required';
+    } else if (name.length < 3) {
+      return 'Name must be longer than three characters'
+    }
+  }
+
+  
+  render() {
+    return (
+
+      <NotefulContext.Consumer>{
+        value => {
+          return (
+        <form onSubmit={(e) => value.addFolder(this.state.folderName.value)}>
+          <input type='text' name='folderName' onChange={folderName => this.updateName(folderName.target.value)} />
+          <button type='submit' disabled={this.validName()}>Add</button>
+        </form>
+          )
+        }
+      }
+      </NotefulContext.Consumer>
+    )
+  }
+}

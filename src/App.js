@@ -4,6 +4,7 @@ import Folder from './Folder'
 import Note from './Note'
 import NoteContent from './NoteContent'
 import NotefulContext from './NotefulContext';
+import AddFolder from './AddFolder'
 
 export default class App extends Component {
     constructor(props) {
@@ -37,14 +38,25 @@ export default class App extends Component {
                 'content-type': 'application/json'
             },
         })
-        .then(res => {
-            this.getStore('folders');
-            this.getStore('notes');
-        })
+            .then(res => {
+                this.getStore('folders');
+                this.getStore('notes');
+            })
     }
 
-
-
+    folderPost = (name) => {
+        let url = `http://localhost:9090/folders`
+        
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({name: name})
+        })
+        .then(res => this.getStore(`folders`))
+    }
 
 
 
@@ -54,21 +66,21 @@ export default class App extends Component {
             <NotefulContext.Provider value={{
                 folder: this.state.folders,
                 notes: this.state.notes,
-                delete: this.deleteNote
+                delete: this.deleteNote,
+                addFolder: this.folderPost
             }}>
-                <header><Link to='/'>NoteFul</Link></header>
+                <header>
+                    <Link to='/'>NoteFul</Link>
+                </header>
+
                 <nav>
                     <Route path="/" component={Folder} />
                 </nav>
 
                 <main>
-
                     <Route path="/folder/:folderId" component={Note} />
-
-
-
                     <Route path='/notes/:noteId' component={NoteContent} />
-
+                    <Route path='/folder/add-folder' component={AddFolder} />
                 </main>
 
             </NotefulContext.Provider>
