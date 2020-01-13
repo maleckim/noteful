@@ -1,5 +1,6 @@
 import React from 'react';
 import NotefulContext from './NotefulContext';
+import ValidationError from './ValidationError'
 
 export default class AddFolder extends React.Component {
   constructor(props) {
@@ -27,6 +28,8 @@ export default class AddFolder extends React.Component {
 
   
   render() {
+    let nameError = this.validName();
+
     return (
 
       <NotefulContext.Consumer>{
@@ -35,6 +38,7 @@ export default class AddFolder extends React.Component {
         <form onSubmit={(e) => value.addFolder(this.state.folderName.value)}>
           <input type='text' name='folderName' onChange={folderName => this.updateName(folderName.target.value)} />
           <button type='submit' disabled={this.validName()}>Add</button>
+          {this.state.folderName.touched && <ValidationError render={nameError} />}
         </form>
           )
         }
