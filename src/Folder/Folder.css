@@ -8,11 +8,12 @@
 }
 
 a:link{
-  color:white
+  color:black
 }
 
+
 a:visited{
-  color:white;
+  color:black;
 }
 
 /* a {
@@ -33,7 +34,7 @@ a:visited{
 
 .button{
   font-size:30px;
-  color:white;
+  color:black;
   border: none
 }
 

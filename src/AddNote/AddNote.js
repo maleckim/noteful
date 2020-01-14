@@ -1,7 +1,7 @@
 import React from 'react'
 import './AddNote.css'
-import NotefulContext from './NotefulContext'
-import ValidationError from './ValidationError'
+import NotefulContext from '../NotefulContext'
+import ValidationError from '../Errors/ValidationError'
 
 
 export default class AddNote extends React.Component {
@@ -11,19 +11,20 @@ export default class AddNote extends React.Component {
       newNote: {
         content: '',
         title: '',
-        touched: false
+        touched: false,
+        
       }
     }
   }
 
-  findProps = (e) => {
-    e.preventDefault()
-    console.log('ran')
-    console.log(this.props)
-    console.log(this.props.match.params.folderId)
+ 
+
+  findProps = () => {
+    this.props.history.goBack();
   }
 
   updateContent = (contentVal) => {
+    
     this.setState({
       newNote: {
         content: contentVal,
@@ -34,13 +35,13 @@ export default class AddNote extends React.Component {
   }
 
   updateHeader = (headerVal) => {
-    console.log(this.state)
     
     this.setState({
       
       newNote: {
         content: this.state.newNote.content,
         title: headerVal
+
       }
     })
 
@@ -67,7 +68,7 @@ export default class AddNote extends React.Component {
         value => {
           return (
             <>
-              <form className='rightClass' onSubmit={(e) => value.addNote(this.state.newNote.content, this.props.match.params.folderId, this.state.newNote.title)}>
+              <form className='rightClass' onSubmit={(e) => value.addNote(e,this.state.newNote.content, this.props.match.params.folderId, this.state.newNote.title,this.findProps)}>
                 {/* <form onSubmit={(e) => this.findProps(e)}> */}
                 <label>Title</label>
                 <input type='text' name='headerVal' onChange={headerVal => this.updateHeader(headerVal.target.value)} />

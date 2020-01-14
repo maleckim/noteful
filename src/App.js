@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Folder from './Folder';
-import Note from './Note';
-import NoteContent from './NoteContent';
+import Folder from './Folder/Folder';
+import Note from './Notes/Note';
+import NoteContent from './Notes/NoteContent';
 import NotefulContext from './NotefulContext';
-import AddFolder from './AddFolder';
-import AddNote from './AddNote';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 import moment from 'moment';
-import MainError from './MainError'
+import MainError from './Errors/MainError'
 
 export default class App extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ export default class App extends Component {
             },
         })
             .then(res => {
-                
+
                 this.getStore('notes');
             })
     }
@@ -61,8 +61,8 @@ export default class App extends Component {
     }
 
 
-    notePost = (content, folderId, title) => {
-        console.log(title)
+    notePost = (e, content, folderId, title, callback) => {
+        e.preventDefault();
         let url = `http://localhost:9090/notes`
 
         fetch(url, {
@@ -72,8 +72,13 @@ export default class App extends Component {
             },
             body: JSON.stringify({ name: title, folderId: folderId, modified: moment().format(), content: content })
         })
-            .then(res => res.json())
-            .then(resJson => this.getStore('notes'))
+            
+            .then(res => {
+                this.getStore('notes')
+                return callback();
+            }
+            )
+            
     }
 
 
@@ -93,14 +98,16 @@ export default class App extends Component {
                 </header>
 
                 <nav>
-                    <Route path="/" component={Folder} />
+                    <MainError>
+                        <Route path="/" component={Folder} />
+                    </MainError>
                 </nav>
 
                 <main>
 
                     <MainError>
                         <Route path="/folder/:folderId" component={Note} />
-                        <Route path='/folder/:folderId/add-note' component={AddNote} />
+                        <Route path='/folder/:folderId/add-note/' component={AddNote} />
                         <Route path='/notes/:noteId' component={NoteContent} />
                         <Route path='/folder/add-folder' component={AddFolder} />
                     </MainError>

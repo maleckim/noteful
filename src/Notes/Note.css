@@ -1,14 +1,18 @@
-
+html{
+  background-color:#2460A7FF; 
+  color:black;
+}
 
 .noteList{
   list-style: none;
   padding:15px;
   width:15%;
   margin-top:20px;
-  color:white;
+  color:black;
   background-color: lightblue;
   border-radius: 4px;
   text-align: center;
+  
 }
 
 .noteHeader{
@@ -19,7 +23,7 @@
   margin-top:10px;
   padding:16px;
   background-color: lightblue;
-  color:white;
+  color:black;
   border-radius: 4px;
   border:none;
 }

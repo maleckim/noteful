@@ -1,6 +1,7 @@
 import React from 'react';
-import NotefulContext from './NotefulContext';
-import ValidationError from './ValidationError'
+import NotefulContext from '../NotefulContext';
+import ValidationError from '../Errors/ValidationError'
+import './AddFolder.css'
 
 export default class AddFolder extends React.Component {
   constructor(props) {
