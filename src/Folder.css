@@ -1,0 +1,40 @@
+.folderHolder{
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow:wrap;
+  list-style: none;
+  font-size: 30px;
+  padding:0;
+}
+
+a:link{
+  color:white
+}
+
+a:visited{
+  color:blue;
+}
+
+a {
+  text-decoration: none;
+}
+
+.folderList{
+  margin-top:20px;
+  padding:16px;
+  background-color: lightblue;
+  border-radius: 4px;
+  
+}
+
+.folderHead{
+  text-align: center;
+}
+
+.button{
+  font-size:30px;
+  color:white
+}
+
+
+

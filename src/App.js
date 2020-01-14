@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Folder from './Folder'
-import Note from './Note'
-import NoteContent from './NoteContent'
+import Folder from './Folder';
+import Note from './Note';
+import NoteContent from './NoteContent';
 import NotefulContext from './NotefulContext';
-import AddFolder from './AddFolder'
-import AddNote from './AddNote'
+import AddFolder from './AddFolder';
+import AddNote from './AddNote';
+import moment from 'moment';
+import MainError from './MainError'
 
 export default class App extends Component {
     constructor(props) {
@@ -40,38 +42,38 @@ export default class App extends Component {
             },
         })
             .then(res => {
-                this.getStore('folders');
+                
                 this.getStore('notes');
             })
     }
 
     folderPost = (name) => {
         let url = `http://localhost:9090/folders`
-        
-        
+
         fetch(url, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({name: name})
+            body: JSON.stringify({ name: name })
         })
-        .then(res => this.getStore(`folders`))
+            .then(res => this.getStore(`folders`))
     }
 
+
     notePost = (content, folderId, title) => {
-        
+        console.log(title)
         let url = `http://localhost:9090/notes`
-        
+
         fetch(url, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({content: content, folderId: folderId, name: title})
+            body: JSON.stringify({ name: title, folderId: folderId, modified: moment().format(), content: content })
         })
-        .then(res => res.json())
-        .then(resJson => this.getStore('notes'))
+            .then(res => res.json())
+            .then(resJson => this.getStore('notes'))
     }
 
 
@@ -95,11 +97,14 @@ export default class App extends Component {
                 </nav>
 
                 <main>
-                    
-                    <Route path="/folder/:folderId" component={Note} />
-                    <Route path='/folder/:folderId/add-note' component={AddNote}/>
-                    <Route path='/notes/:noteId' component={NoteContent} />
-                    <Route path='/folder/add-folder' component={AddFolder} />
+
+                    <MainError>
+                        <Route path="/folder/:folderId" component={Note} />
+                        <Route path='/folder/:folderId/add-note' component={AddNote} />
+                        <Route path='/notes/:noteId' component={NoteContent} />
+                        <Route exact path='/folder/add-folder' component={AddFolder} />
+                    </MainError>
+
                 </main>
 
             </NotefulContext.Provider>

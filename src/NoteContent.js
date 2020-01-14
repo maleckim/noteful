@@ -16,7 +16,7 @@ export default function NoteContent(props) {
       {value => {
         return (
           <>
-            {value.notes.map(a => a.id === id ? <p>{a.content}</p> : null)}
+            {value.notes.map((a,b) => a.id === id ? <p key={b}>{a.content}</p> : null)}
             <button onClick={() => props.history.goBack()}>Go Back</button>
           </>
         )

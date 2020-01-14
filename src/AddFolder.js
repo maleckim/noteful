@@ -37,7 +37,7 @@ export default class AddFolder extends React.Component {
           return (
         <form onSubmit={(e) => value.addFolder(this.state.folderName.value)}>
           <input type='text' name='folderName' onChange={folderName => this.updateName(folderName.target.value)} />
-          <button type='submit' disabled={this.validName()}>Add</button>
+          <button type='submit' disabled={this.validName()}>Add Folder</button>
           {this.state.folderName.touched && <ValidationError render={nameError} />}
         </form>
           )
