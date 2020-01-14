@@ -2,4 +2,37 @@
 
 .noteList{
   list-style: none;
+  padding:15px;
+  width:15%;
+  margin-top:20px;
+  color:white;
+  background-color: lightblue;
+  border-radius: 4px;
+  text-align: center;
 }
+
+.noteHeader{
+  text-align: center;
+}
+
+.noteHeader button{
+  margin-top:10px;
+  padding:16px;
+  background-color: lightblue;
+  color:white;
+  border-radius: 4px;
+  border:none;
+}
+
+.noteDelete{
+  border-radius: 4px;
+  border:none;
+  background-color: white;
+  
+}
+
+.noteContent{
+  margin-top:25vh;
+  text-align: center;
+}
+

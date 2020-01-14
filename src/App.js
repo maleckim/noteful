@@ -102,7 +102,7 @@ export default class App extends Component {
                         <Route path="/folder/:folderId" component={Note} />
                         <Route path='/folder/:folderId/add-note' component={AddNote} />
                         <Route path='/notes/:noteId' component={NoteContent} />
-                        <Route exact path='/folder/add-folder' component={AddFolder} />
+                        <Route path='/folder/add-folder' component={AddFolder} />
                     </MainError>
 
                 </main>

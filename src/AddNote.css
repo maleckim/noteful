@@ -1,13 +1,14 @@
 
 .rightClass{
-  position: absolute;;
+  position: absolute;
+  
   right:25%;
-  top:25%;
-  height:25%;
-  text-align: center;
+  top:40%;
+  height:35%;
+  
 }
 
-input[type=text],textarea{
+input[type=text], textarea {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -19,14 +20,18 @@ input[type=text],textarea{
 
 /* Style the submit button */
 button[type=submit] {
+  width: 100%;
   background-color: lightblue;
   color: white;
   padding: 14px 20px;
-  margin-left:auto;
-  margin-right:auto;
+  margin: 8px 0;
   border: none;
   border-radius: 4px;
-  text-align: center;
   cursor: pointer;
 }
+
+/* .addFolder{
+  text-align: center;
+  padding-top:50px;
+} */
 

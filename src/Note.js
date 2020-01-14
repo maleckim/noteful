@@ -8,17 +8,17 @@ import './Note.css'
 export default function Note(props) {
 
   let id = props.match.params.folderId
+  
 
   return (
     <NotefulContext.Consumer>
       {value => {
         return (
           <>
-            
-            {value.folder.map((a,b) => a.id === id ? <h1 key={b}> {a.name} </h1> : null)}
-
-            <button onClick={() => props.history.push(`/folder/${id}/add-note`)}>Add Note</button>
-
+            <div className='noteHeader'>
+            {value.folder.map((a,b) => a.id === id ? <h1 className='currentFolder' key={b}> Current Folder: {a.name} </h1> : null)} 
+            <button className='addNote' onClick={() => props.history.push(`/folder/${id}/add-note`)}>Add Note</button>
+            </div>
             {value.notes.map((a, b) =>
               a.folderId === id ?
                 
@@ -27,7 +27,7 @@ export default function Note(props) {
 
                   <p>{a.modified}</p>
 
-                  <input type='button'
+                  <input className='noteDelete' type='button'
                     value='delete'
                     onClick={() => value.delete(a.id)} />
 

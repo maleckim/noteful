@@ -27,19 +27,24 @@ export default class AddNote extends React.Component {
     this.setState({
       newNote: {
         content: contentVal,
-        touched: true
+        touched: true,
+        title:this.state.newNote.title
       }
     })
   }
 
   updateHeader = (headerVal) => {
+    console.log(this.state)
+    
     this.setState({
-
+      
       newNote: {
         content: this.state.newNote.content,
         title: headerVal
       }
     })
+
+    
   }
 
   validateContent() {
@@ -61,8 +66,8 @@ export default class AddNote extends React.Component {
       <NotefulContext.Consumer>{
         value => {
           return (
-            <div className='rightClass'>
-              <form onSubmit={(e) => value.addNote(this.state.newNote.content, this.props.match.params.folderId, this.state.newNote.title)}>
+            <>
+              <form className='rightClass' onSubmit={(e) => value.addNote(this.state.newNote.content, this.props.match.params.folderId, this.state.newNote.title)}>
                 {/* <form onSubmit={(e) => this.findProps(e)}> */}
                 <label>Title</label>
                 <input type='text' name='headerVal' onChange={headerVal => this.updateHeader(headerVal.target.value)} />
@@ -72,7 +77,7 @@ export default class AddNote extends React.Component {
                 <button type='submit'>Submit</button>
                 {this.state.newNote.touched && <ValidationError render={contentError} />}
               </form>
-            </div>
+           </>
 
           )
         }
