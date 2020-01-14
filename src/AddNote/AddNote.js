@@ -12,6 +12,7 @@ export default class AddNote extends React.Component {
         content: '',
         title: '',
         touched: false,
+        titleTouched:false
         
       }
     }
@@ -40,7 +41,8 @@ export default class AddNote extends React.Component {
       
       newNote: {
         content: this.state.newNote.content,
-        title: headerVal
+        title: headerVal,
+        titleTouched: true
 
       }
     })
@@ -60,8 +62,20 @@ export default class AddNote extends React.Component {
     }
   }
 
+
+  validateTitle() {
+    const name = this.state.newNote.title.trim();
+
+    if(name.length === 0){
+      return 'Title cannot be left empty!'
+    }
+
+  }
+
   render() {
     const contentError = this.validateContent();
+    const titleError = this.validateTitle();
+
 
     return (
       <NotefulContext.Consumer>{
@@ -69,13 +83,12 @@ export default class AddNote extends React.Component {
           return (
             <>
               <form className='rightClass' onSubmit={(e) => value.addNote(e,this.state.newNote.content, this.props.match.params.folderId, this.state.newNote.title,this.findProps)}>
-                {/* <form onSubmit={(e) => this.findProps(e)}> */}
                 <label>Title</label>
                 <input type='text' name='headerVal' onChange={headerVal => this.updateHeader(headerVal.target.value)} />
                 <label>Content</label>
                 <textarea type='text' name='contentVal' onChange={contentVal => this.updateContent(contentVal.target.value)} />
-
-                <button type='submit'>Submit</button>
+                <button type='submit' disabled={this.validateContent() || this.validateTitle()}>Submit</button>
+                {this.state.newNote.titleTouched && <ValidationError render={titleError} />}
                 {this.state.newNote.touched && <ValidationError render={contentError} />}
               </form>
            </>
