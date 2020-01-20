@@ -18,6 +18,10 @@ export default class AddFolder extends React.Component {
     this.setState({ folderName: { value: name, touched: true } })
   }
 
+  goHome = () => {
+    this.props.history.push('/')
+  }
+
   validName() {
     const name = this.state.folderName.value.trim();
     if (name.length === 0) {
@@ -36,7 +40,7 @@ export default class AddFolder extends React.Component {
       <NotefulContext.Consumer>{
         value => {
           return (
-        <form className='addFolder' onSubmit={(e) => value.addFolder(this.state.folderName.value)}>
+        <form className='addFolder' onSubmit={(e) => value.addFolder(e, this.state.folderName.value, this.goHome)}>
           <input type='text' name='folderName' onChange={folderName => this.updateName(folderName.target.value)} />
           <button type='submit' disabled={this.validName()}>Add Folder</button>
           {this.state.folderName.touched && <ValidationError render={nameError} />}

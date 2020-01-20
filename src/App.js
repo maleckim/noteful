@@ -47,7 +47,8 @@ export default class App extends Component {
             })
     }
 
-    folderPost = (name) => {
+    folderPost = (e, name, callback) => {
+        e.preventDefault();
         let url = `http://localhost:9090/folders`
 
         fetch(url, {
@@ -57,7 +58,10 @@ export default class App extends Component {
             },
             body: JSON.stringify({ name: name })
         })
-            .then(res => this.getStore(`folders`))
+            .then(res => {
+                this.getStore(`folders`)
+                return callback();
+            })
     }
 
 
@@ -104,12 +108,12 @@ export default class App extends Component {
                 </nav>
 
                 <main>
-
+                
                     <MainError>
                         <Route path="/folder/:folderId" component={Note} />
                         <Route path='/folder/:folderId/add-note/' component={AddNote} />
                         <Route path='/notes/:noteId' component={NoteContent} />
-                        <Route path='/folder/add-folder' component={AddFolder} />
+                        <Route path='/add-folder' component={AddFolder} />
                     </MainError>
 
                 </main>
@@ -120,3 +124,6 @@ export default class App extends Component {
 
     }
 }
+
+
+// add note to only show up when in folder, add folder and add note overlap

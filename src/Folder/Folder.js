@@ -23,7 +23,7 @@ export default function Folder(props) {
                   </Link>
                 </li>
               )}
-              <li><button className='folderList button' onClick={() => props.history.push('/folder/add-folder')}>+</button></li>
+              <li><button className='folderList button' onClick={() => props.history.push('/add-folder')}>+</button></li>
             </ul>
 
           </>
